@@ -60,13 +60,19 @@ const loginUser = async (req, res) => {
 }
 
 const searchUser = async(req, res) =>{
-    try{
-        const inputSearch = req.query.search
 
-        res.json({users})
-    } catch(err){
-
+    const inputSearch = req.query.search ? {
+        $or: [
+            {userName: {$regex: req.query.search, $options: "i"}},
+        ]
     }
+
+    : {}
+
+    const users = await User.find(inputSearch).find({_id: {$ne: req.user._id}})
+
+    res.json(users)
+  
 }
 
 const getloggedIn = async (req,res) => {

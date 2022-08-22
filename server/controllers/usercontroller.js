@@ -43,7 +43,7 @@ const loginUser = async (req, res) => {
     try{
         const validUser = await User.findOne({userName})
 
-        if(!validUser) return res.json({status: 'username does not match or user does not exist'})
+        if(!validUser) return res.json({status: 'username or password does not match or user does not exist'})
 
         if(await bcrypt.compare(passWord, validUser.passWord)){
             const token = generatetoken({id: validUser._id})

@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const Chat = require('../models/chatModel')
+const jwt = require("jsonwebtoken")
 
 const accessChat = async (req, res) => {
     const {userId} = req.body
@@ -12,7 +13,7 @@ const accessChat = async (req, res) => {
     let isChat = await Chat.find({
         groupChat: false,
         $and: [
-            {users: {$elemMatch: {$eq: req.user._id}}},
+            {users: {$elemMatch: {$eq: req.user.id}}},
             {users: {$elemMatch: {$eq: userId}}}
         ]
 
@@ -32,11 +33,12 @@ const accessChat = async (req, res) => {
         let chatData = {
             chatName: "sender",
             groupChat: false,
-            users: [req.user._id, userId]
+            users: [req.user.id, userId]
         }
 
         try {
-            const createdChat = await Chat.create(chatData)
+            const createdChat = await new Chat(chatData)
+            await createdChat.save()
 
             const fullChat = await Chat.findOne({_id: createdChat._id}).populate(
                 "users",
@@ -56,7 +58,7 @@ const accessChat = async (req, res) => {
 const fetchMyChats = async (req, res) =>{
 
     try{
-        Chat.find({users: {$elemMatch: {$eq: req.user._id}}})
+        Chat.find({users: {$elemMatch: {$eq: req.user.id}}})
             .populate("users", "-passWord")
             //.populate("groupAdmin", "-passWord")
             //.populate("lastestMessage")

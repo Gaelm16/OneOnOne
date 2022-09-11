@@ -16,7 +16,8 @@ const accessChat = async (req, res) => {
             {users: {$elemMatch: {$eq: userId}}}
         ]
 
-    }).populate("users", "-password")
+    })
+        .populate("users", "-password")
         .populate("latestMessage")
 
 
@@ -28,16 +29,16 @@ const accessChat = async (req, res) => {
     if(isChat.length > 0){
         res.json(isChat[0])
     } else {
-        const chatData = {
+        let chatData = {
             chatName: "sender",
             groupChat: false,
             users: [req.user._id, userId]
         }
 
         try {
-            const createdChat = await new Chat(chatData)
+            const createdChat = await Chat.create(chatData)
 
-            const fullChat = await Chat.findOne({_id: createdChat}).populate(
+            const fullChat = await Chat.findOne({_id: createdChat._id}).populate(
                 "users",
                 '-passWord'
             )
@@ -46,6 +47,7 @@ const accessChat = async (req, res) => {
 
         } catch(e){
             console.log(e)
+            res.status(400)
         }
     }
 
@@ -57,16 +59,17 @@ const fetchMyChats = async (req, res) =>{
         Chat.find({users: {$elemMatch: {$eq: req.user._id}}})
             .populate("users", "-passWord")
             //.populate("groupAdmin", "-passWord")
-            .populate("lastestMessage")
+            //.populate("lastestMessage")
             .sort({updatedAt: -1})
             .then(async (results) => {
                 results = await User.populate(results, {
                     path: "latestMessage.sender",
                     select: "userName"
                 })
+
+                res.status(200).json(results)
             })
 
-            res.status(200).send(results)
     } catch(e){
         res.status(400)
         console.log(e)

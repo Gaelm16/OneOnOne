@@ -2,10 +2,14 @@ import React, { createContext, useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
-export const AuthContext = createContext({})
+export const AuthContext = createContext({});
+export const chatContext = createContext();
 
 const UserContext = ({children}) => {
-    const [loggedIn, setloggedIn] = useState(false)
+    const [loggedIn, setloggedIn] = useState(false);
+    const [selectedChat, setSelectedChat]  = useState();
+    const [myChats, setMyChats] = useState([]);
+    
     let navigate = useNavigate()
 
     const getloggedIn = async () => {
@@ -24,7 +28,7 @@ const UserContext = ({children}) => {
     },[])
     
     return (
-        <AuthContext.Provider value={{loggedIn, getloggedIn, logOut}}>
+        <AuthContext.Provider value={{loggedIn, getloggedIn, logOut, myChats, setMyChats, selectedChat, setSelectedChat}}>
             {children}
         </AuthContext.Provider>
     )

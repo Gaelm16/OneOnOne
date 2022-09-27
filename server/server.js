@@ -2,12 +2,12 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-//const routesUrls = require('./routes/routes')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const userRoutes = require('./routes/userRoutes')
-//const {addCommentToPost} = require('./routes/controller')
+const chatRoutes = require('./routes/chatRoutes')
+const messageRoutes = require('./routes/messageRoutes')
 
 dotenv.config()
 
@@ -26,6 +26,7 @@ app.use(cors({
 }));
 
 app.use('/', userRoutes)
-//app.use('/comments/:id', addCommentToPost)
+app.use('/api/chat', chatRoutes)
+app.use('/api/message', messageRoutes)
 
 app.listen(4000, () => console.log('Server is running'))

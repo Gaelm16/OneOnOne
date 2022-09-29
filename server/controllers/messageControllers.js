@@ -17,9 +17,9 @@ const sendMessage = async(req, res) => {
     }
 
     try{
-        let message = await new Message(newMessage)
+        let message = await Message.create(newMessage)
 
-        message = await message.populate("sender", "userName")
+        message = await message.populate("sender", "-passWord")
         message = await message.populate("chat")
         message = await User.populate(message, {
             path: "chat.users",
@@ -30,15 +30,18 @@ const sendMessage = async(req, res) => {
             latestMessage: message
         })
 
+        res.json(message)
+
     } catch(e){
-        console.log(e)
+        res.status(400);
+        console.log(e);
     }
 }
 
 const getAllMessages = async(req, res) => {
     try{
         const messages = await Message.find({chat: req.params.chatId})
-            .populate("sender", userName)
+            .populate("sender", "userName")
             .populate("chat")
         res.json(messages)
     } catch(e){

@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext();
 export const chatContext = createContext();
 
 const UserContext = ({children}) => {

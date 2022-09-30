@@ -1,24 +1,10 @@
 import React, {useEffect, useContext} from 'react'
 import axios from 'axios'
 import { AuthContext } from '../../UserContext' 
+import Main from './Main.css'
 
 const MyChats = () => {
-
     const {myChats, setMyChats} = useContext(AuthContext);
-
-    const fetchMyChats = async() => {
-        try{
-            const data = await axios.get('http://localhost:4000/api/chat');
-            setMyChats(data.response)
-        } catch(e){
-            console.log(e)
-        }
-      
-    }
-
-    // useEffect(() => {
-    //     fetchMyChats();
-    // }, [])
 
     useEffect(() => {
         axios.get('http://localhost:4000/api/chat')
@@ -26,33 +12,49 @@ const MyChats = () => {
     }, [])
 
   return (
-    <section>   
-        <div>
-            <div>My Chats</div>
-            <div>
-                <button>Search for User</button>
-                <button>Create Group Chat</button>
+    <section className='myChats-tab'>   
+        <div className='front'>
+            <div className='alignhead'>
+                <h1 className='h1'>My Chats</h1>
             </div>
+
+            <div className='align'>
+                <div className='single-button-div'>
+                    <button className='button'>Search for User</button>
+                </div>
+                <div className='single-button-div'>
+                    <button className='button'>Create Group Chat</button>
+                </div>
+            </div>
+            
         </div>
 
         {myChats ?  (
-            <div>
+            <div className="chatTab">
                 {console.log(myChats)}
                 {myChats.map((chatData) => {
-                    <article key={chatData._id}>
+                    return(
+                        <article 
+                        className='singlechatTab' 
+                        key={chatData._id}
+                        onClick={() => setMyChats(chatData)}
+                        >
                         <h4>
                             {!chatData.groupChat 
                                 // ? getSender(chatData.users)
-                                ? <>hello</>
-                                : chatData.chatName 
+                                ? <></>
+                                : chatData.chatName
                             }   
                         </h4>
+                        <h4>{chatData.chatName}</h4>
                          <h4>
                             {chatData.latestMessage && (
                                <b>{chatData.lastestMessage}</b>
                             )} 
                         </h4>
-                    </article>
+                        </article>
+                    )
+                   
                 })}
             </div>
         )   

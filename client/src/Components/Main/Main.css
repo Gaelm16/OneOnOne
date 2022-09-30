@@ -1,0 +1,72 @@
+.myChats-tab{
+    /* position: absolute; */
+  /* top: 0;
+  left: 0; */
+  width: 35%;
+  height: auto;
+  height: auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:#1e3a8a;
+  border-bottom: 2px solid #D6CBC1;
+  position: relative;
+}
+
+.chatTab{
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    top: 100px;
+    border: 2px solid red;
+}
+
+.singlechatTab{
+    border: 2px solid blue;
+}
+
+.front{
+    position: absolute;
+    width: 70%;
+    display: flex;
+    margin: 0 auto;
+    border: 2px solid white;
+    margin: 10px;
+    padding: 10px;
+}
+
+.alignhead{
+    width: 40%;
+    border: 2px solid red;
+    margin: 0 auto;
+    display: flex;
+}
+
+.align{
+    width: 50%;
+    display: flex;
+    border: 3px solid #fff;
+    margin: 0 auto;
+}
+
+.single-button-div{
+    width: 100%;
+    border: 2px solid red;
+}
+
+.button{
+    width: 100px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 5px;
+    background: #4676d7;
+    color: #fff;
+}
+
+.h1{
+    color: white;
+    border: 2px solid red;
+    margin: 0 auto;
+    padding: 5px;
+    display: flex;
+}

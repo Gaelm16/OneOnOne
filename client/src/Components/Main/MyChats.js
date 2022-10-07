@@ -4,7 +4,11 @@ import { AuthContext } from '../../UserContext'
 import Main from './Main.css'
 
 const MyChats = () => {
-    const {myChats, setMyChats} = useContext(AuthContext);
+    const {loggedIn, myChats, setMyChats} = useContext(AuthContext);
+
+    const getMessageSender = (loggedUser, users) => {
+        return users[0]._id === loggedUser._id ? users[1].userName : users[0].userName;
+    };
 
     useEffect(() => {
         axios.get('http://localhost:4000/api/chat')
@@ -22,9 +26,9 @@ const MyChats = () => {
                 <div className='single-button-div'>
                     <button className='button'>Search for User</button>
                 </div>
-                <div className='single-button-div'>
+                {/* <div className='single-button-div'>
                     <button className='button'>Create Group Chat</button>
-                </div>
+                </div> */}
             </div>
             
         </div>
@@ -32,7 +36,9 @@ const MyChats = () => {
         {myChats ?  (
             <div className="chatTab">
                 {console.log(myChats)}
+                
                 {myChats.map((chatData) => {
+                    {console.log(chatData.latestMessage.messageContent)}
                     return(
                         <article 
                         className='singlechatTab' 
@@ -41,17 +47,15 @@ const MyChats = () => {
                         >
                         <h4>
                             {!chatData.groupChat 
-                                // ? getSender(chatData.users)
-                                ? <></>
-                                : chatData.chatName
+                                ? getMessageSender(loggedIn, chatData.users)
+                                : <h4>{chatData.chatName}</h4>
                             }   
                         </h4>
-                        <h4>{chatData.chatName}</h4>
-                         <h4>
-                            {chatData.latestMessage && (
-                               <b>{chatData.lastestMessage}</b>
-                            )} 
-                        </h4>
+                        <h4>{chatData.latestMessage.messageContent}</h4>
+                        {/* {chatData.latestMessage && (
+                            <h4>{chatData.lastestMessage}</h4>                               
+                        )}  */}
+                        
                         </article>
                     )
                    

@@ -23,6 +23,7 @@
 
 .singlechatTab{
     border: 2px solid blue;
+    display: flex;
 }
 
 .front{
@@ -50,8 +51,10 @@
 }
 
 .single-button-div{
+    margin: auto;
     width: 100%;
     border: 2px solid red;
+    width: fit-content;
 }
 
 .button{
@@ -69,4 +72,20 @@
     margin: 0 auto;
     padding: 5px;
     display: flex;
+}
+
+.main{
+    display: flex;
+    flex: 1;
+}
+
+.Box{
+    border: 2px solid black;
+    margin-left: auto;
+    flex: 1;
+    flex-direction: column;
+    margin: center;
+    float: right;
+    width: 90%;  
+    align-items: center;
 }

@@ -6,6 +6,7 @@ import ScrollableChat from './ScrollableChat';
 const SingleChat = () => {
   const {selectedChat, setSelectedChat} = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
+  const [messageContent, setMessageContent] = useState('');
 
   const fetchChatMessages = async () => {
     if(!selectedChat) return;
@@ -29,8 +30,15 @@ const SingleChat = () => {
         SingleChat
         {selectedChat && 
           <ScrollableChat messages={messages}/>
+
         }
        {console.log(messages)}
+        <input 
+            type="text" 
+            value={messageContent}
+            placeholder='Enter mesage'
+            onChange={ (e) => setMessageContent(e.target.value)}
+        />
     </div>
 
   )

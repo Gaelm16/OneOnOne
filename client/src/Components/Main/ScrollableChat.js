@@ -23,22 +23,26 @@ const ScrollableChat = ({messages}) => {
 
   return (
     <div>
-    {messages &&
-    messages.map((message, i) => {
-      return(
-          <div key={i}>
-            {/* {(isSameSender(messages, message, i, loggedIn._id) ||
-              isLastMessage(messages, i, loggedIn._id)) && (
-                <div>{message.userName}</div>
-              )} */}
-              <span>
-                {message.messageContent}
-              </span>
-        </div>
-      )
-      
-    })}
+      {messages &&
+        messages.map((message, i) => {
+          return(
+              <div key={i} >
+                {/* {(isSameSender(messages, message, i, loggedIn._id) ||
+                  isLastMessage(messages, i, loggedIn._id)) && (
+                    <h4>{message.sender.userName}</h4>
+                )} */}
+                  <span>
+                    {message.sender.userName}
+                    {message.messageContent}
+                  </span>
+            </div>
+          )
+          
+      })}
+
+      {console.log(messages)}
     </div>
+    
   )
 }
 

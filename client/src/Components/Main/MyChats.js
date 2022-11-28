@@ -35,8 +35,6 @@ const MyChats = () => {
 
         {myChats ?  (
             <div className="chatTab">
-                {console.log(myChats)}
-                
                 {myChats.map((chatData) => {
                     {console.log(chatData.latestMessage.messageContent)}
                     return(

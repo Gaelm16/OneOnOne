@@ -4,7 +4,7 @@ import { AuthContext } from '../../UserContext'
 import Main from './Main.css'
 
 const MyChats = () => {
-    const {loggedIn, selectedChat, setSelectedChat, myChats, setMyChats} = useContext(AuthContext);
+    const {loggedIn, selectedChat, setSelectedChat, myChats, setMyChats, searchDrawer, setSearchModal} = useContext(AuthContext);
 
     const getMessageSender = (loggedUser, users) => {
         return users[0]._id === loggedUser._id ? users[1].userName : users[0].userName;
@@ -24,8 +24,9 @@ const MyChats = () => {
 
             <div className='align'>
                 <div className='single-button-div'>
-                    <button className='button'>Search for User</button>
+                    <button className='button' onClick={() => setSearchModal(true)}>Search for User</button>
                 </div>
+                
                 {/* <div className='single-button-div'>
                     <button className='button'>Create Group Chat</button>
                 </div> */}

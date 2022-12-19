@@ -9,6 +9,7 @@ const UserContext = ({children}) => {
     const [loggedIn, setloggedIn] = useState(false);
     const [selectedChat, setSelectedChat]  = useState();
     const [myChats, setMyChats] = useState([]);
+    const [searchDrawer, setSearchModal] = useState(false);
     
     let navigate = useNavigate()
 
@@ -28,7 +29,7 @@ const UserContext = ({children}) => {
     },[])
     
     return (
-        <AuthContext.Provider value={{loggedIn, getloggedIn, logOut, myChats, setMyChats, selectedChat, setSelectedChat}}>
+        <AuthContext.Provider value={{loggedIn, getloggedIn, logOut, myChats, setMyChats, selectedChat, setSelectedChat, searchDrawer, setSearchModal}}>
             {children}
         </AuthContext.Provider>
     )

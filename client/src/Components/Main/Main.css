@@ -1,11 +1,7 @@
 .myChats-tab{
-    /* position: absolute; */
-  /* top: 0;
-  left: 0; */
+  left: 1px; 
   width: 35%;
-  height: auto;
-  height: auto 10px;
-  display: flex;
+  height: 10ch;
   align-items: center;
   justify-content: center;
   background-color:#1e3a8a;
@@ -15,7 +11,7 @@
 
 .chatTab{
     position: relative;
-    width: 100%;
+    margin-top: 10px;
     padding: 10px;
     top: 100px;
     border: 2px solid red;
@@ -80,12 +76,36 @@
 }
 
 .Box{
+    height: 10ch auto;
     border: 2px solid black;
     margin-left: auto;
     flex: 1;
-    flex-direction: column;
-    margin: center;
-    float: right;
     width: 90%;  
     align-items: center;
+}
+
+.SearchModal{
+    width: 20%;
+    padding: 10px;
+    border: 2px solid red;
+}
+
+.inline-message{
+    width: 50%;
+    display: flex;
+    border: 3px solid #fff;
+}
+
+.inline{
+    display: flex;
+    margin: auto;
+}
+
+.inline h3{
+    margin: 0 auto;
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }

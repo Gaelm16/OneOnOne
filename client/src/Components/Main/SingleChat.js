@@ -1,12 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../../UserContext'
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../UserContext';
 import axios from 'axios';
 import ScrollableChat from './ScrollableChat';
+import io from 'socket.io-client';
 
 const SingleChat = () => {
   const {selectedChat, setSelectedChat, loggedIn} = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
+  const [socketConnected, setSocketConnected] = useState(false);
+
+  const ENDPOINT = "http://localhost:5000"; 
+  let socket;
 
     const getMessageSender = (loggedUser, users) => {
       return users[0]._id === loggedUser._id ? users[1].userName : users[0].userName;
@@ -41,6 +46,14 @@ const SingleChat = () => {
       console.log(e);
     }
   }
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", loggedIn);
+    socket.on('connected', () => {
+      setSocketConnected(true);
+    })
+  }, [])
 
   useEffect(() =>{
     fetchChatMessages();

@@ -1,10 +1,10 @@
 import React, {useEffect, useContext} from 'react'
 import axios from 'axios'
 import { AuthContext } from '../../UserContext' 
-import Main from './Main.css'
+// import Main from './Main.css'
 
 const MyChats = () => {
-    const {loggedIn, selectedChat, setSelectedChat, myChats, setMyChats, searchDrawer, setSearchModal} = useContext(AuthContext);
+    const {loggedIn, setSelectedChat, myChats, setMyChats, setSearchModal} = useContext(AuthContext);
 
     const getMessageSender = (loggedUser, users) => {
         return users[0]._id === loggedUser._id ? users[1].userName : users[0].userName;
@@ -37,25 +37,30 @@ const MyChats = () => {
         {myChats ?  (
             <div className="chatTab">
                 {myChats.map((chatData) => {
-                    {console.log(chatData.latestMessage.messageContent)}
+                    // {console.log(chatData.latestMessage.messageContent)}
                     return(
+                        
                         <article 
                         className='singlechatTab' 
                         key={chatData._id}
                         onClick={() => setSelectedChat(chatData)}
                         >
+                        <div className="single-button-div">
                         <h4>
                             {!chatData.groupChat 
                                 ? getMessageSender(loggedIn, chatData.users)
                                 : <h4>{chatData.chatName}</h4>
                             }   
                         </h4>
+                        </div>
+                        <div className="single-button-div">
                         <h4>{chatData.latestMessage.messageContent}</h4>
                         {/* {chatData.latestMessage && (
                             <h4>{chatData.lastestMessage}</h4>                               
                         )}  */}
-                        
+                        </div>
                         </article>
+                        
                     )
                    
                 })}

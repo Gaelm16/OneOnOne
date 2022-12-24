@@ -54,10 +54,10 @@ const MyChats = () => {
                         </h4>
                         </div>
                         <div className="single-button-div">
-                        <h4>{chatData.latestMessage.messageContent}</h4>
-                        {/* {chatData.latestMessage && (
+                        {/* <h4>{chatData.latestMessage.messageContent}</h4> */}
+                        {chatData.latestMessage && (
                             <h4>{chatData.lastestMessage}</h4>                               
-                        )}  */}
+                        )} 
                         </div>
                         </article>
                         

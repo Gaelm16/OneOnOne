@@ -8,7 +8,7 @@ import Main from './Main.css'
 
 const MainPage = () => {
 
-  const {searchDrawer, setSearchModal} = useContext(AuthContext);
+  const {searchDrawer} = useContext(AuthContext);
   
   return (
     <>

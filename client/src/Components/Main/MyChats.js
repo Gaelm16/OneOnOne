@@ -37,9 +37,7 @@ const MyChats = () => {
         {myChats ?  (
             <div className="chatTab">
                 {myChats.map((chatData) => {
-                    // {console.log(chatData.latestMessage.messageContent)}
                     return(
-                        
                         <article 
                         className='singlechatTab' 
                         key={chatData._id}
@@ -49,7 +47,7 @@ const MyChats = () => {
                         <h4>
                             {!chatData.groupChat 
                                 ? getMessageSender(loggedIn, chatData.users)
-                                : <h4>{chatData.chatName}</h4>
+                                : <h4>{chatData.users[1]}</h4>
                             }   
                         </h4>
                         </div>

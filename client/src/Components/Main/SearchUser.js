@@ -6,7 +6,7 @@ const SearchUser = () => {
     const [searchInput, setsearchInput] = useState("");
     const [searchResult, setsearchResult] = useState([]);
 
-    const {setSearchModal} = useContext(AuthContext);
+    const {setSearchModal, setSelectedChat, myChats, setMyChats} = useContext(AuthContext);
 
     const fetchSearchedUser = async () => {
         try{
@@ -15,6 +15,23 @@ const SearchUser = () => {
         } catch(e){
             console.log(e);
         }
+    }
+
+    const accessChat = async (userId) => {
+        try{
+            const newChat = await axios.post('http://localhost:4000/api/chat', {userId});
+
+            if(!myChats.find((c) => c._id === newChat._id)){
+                setMyChats([...myChats, newChat]);
+            }
+
+            setSelectedChat(newChat);
+            setSearchModal(false);
+
+        } catch(e){
+            console.log(e)
+        }
+       
     }
 
   return (
@@ -27,21 +44,27 @@ const SearchUser = () => {
                 placeholder="search user..."
                 value={searchInput}
                 onChange={(e) => setsearchInput(e.target.value)}
+                className='searchInput'
                 />
                 <button className='button' onClick={fetchSearchedUser}>Search</button>
                 <button className='button' onClick={() => setSearchModal(false)}> Cancel </button>
             </div>
-        </div>
+    
+        <div className="searchResults-tab">
         {searchResult.map((userData) => {
             console.log(userData)
             return (
-                <div key={userData._id} className="myChats-tab"> 
-                    <h2 >{userData.userName}</h2>
-                    <button className="button">Start Chat</button>
+                <div key={userData._id} className="searchResults"> 
+                    <div className="user">
+                        <p >{userData.userName}</p>    
+                    </div>
+                    
+                    <button className='button' onClick={() => accessChat(userData._id)}>Start Chat</button>
                 </div>
-            )
-               
-        })}
+            )  
+         })}
+        </div>
+        </div>
     </>
   )
 }

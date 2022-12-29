@@ -13,10 +13,11 @@ const MainPage = () => {
   return (
     <>
     <Navbar/>
-    <div className="main">
+    {/* <div className="main"> */}
 
   
     {/* <div className='main'> */}
+    <div className="main">
     <MyChats/>
     {searchDrawer && <SearchUser/>}
 

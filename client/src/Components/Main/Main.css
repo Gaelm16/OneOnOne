@@ -2,6 +2,7 @@
   left: 1px; 
   width: 35%;
   height: 10ch;
+  border-radius: 10px;
   align-items: center;
   justify-content: center;
   background-color:#1e3a8a;
@@ -20,6 +21,7 @@
 .singlechatTab{
     border: 2px solid blue;
     display: flex;
+    margin: 1%;
 }
 
 .front{
@@ -62,6 +64,7 @@
     color: #fff;
 }
 
+
 .h1{
     color: white;
     border: 2px solid red;
@@ -73,10 +76,12 @@
 .main{
     display: flex;
     flex: 1;
+    gap: 10px;
 }
 
 .Box{
     height: 10ch auto;
+    border-radius: 10px;
     border: 2px solid black;
     margin-left: auto;
     flex: 1;
@@ -84,28 +89,50 @@
     align-items: center;
 }
 
+
+/* searchmodal css */
 .SearchModal{
     width: 20%;
     padding: 10px;
     border: 2px solid red;
+    display: inline-block;
 }
 
-.inline-message{
-    width: 50%;
+.searchResults-tab{
+    margin-top: 10px;
+}
+
+.searchResults{
+    position: relative;
+    gap: 30%;
+    border-radius: 10px;
+    background-color:#1e3a8a;
     display: flex;
-    border: 3px solid #fff;
+    margin: 5px;
+}
+
+.searchInput{
+    width: 50%;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .inline{
     display: flex;
+    gap: 5px;
     margin: auto;
 }
 
-.inline h3{
-    margin: 0 auto;
+.user{
+    margin-left: 5%;
+}
+
+.SearchModal h3{
     display: flex;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    position: relative;
+}
+
+.styles{
+    display: block;
+    padding: 5px;
 }

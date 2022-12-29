@@ -63,34 +63,19 @@ const SingleChat = () => {
   return (
     <div>
         {selectedChat && 
-        
           <>  
-             {/* {messages && (
-              !selectedChat.groupChat ? (
-                <>  
-                {getSenderFull(loggedIn, selectedChat.users)}
-                </>
-              ) : (
-                <>
-                {selectedChat.chatName.toUpperCase()}
-                </>
-              )
-            )} */}
-            
-            {/* <div>{selectedChat.users}</div> */}
             <ScrollableChat messages={messages}/>
-            <form onSubmit={sendMessage}>
+            <form onSubmit={sendMessage} >
               <input 
                   type="text" 
                   value={messageContent}
                   placeholder='Enter mesage'
                   onChange={ (e) => setMessageContent(e.target.value)}
+                  className='searchInput'
               />
             </form>
           </>
         }
-       {/* {console.log(selectedChat)} */}
-
     </div>
 
   )

@@ -1,6 +1,6 @@
-import React, { createContext, useEffect, useState } from 'react'
-import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
+import React, { createContext, useEffect, useState } from 'react';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 export const AuthContext = createContext();
 export const chatContext = createContext();
@@ -11,17 +11,17 @@ const UserContext = ({children}) => {
     const [myChats, setMyChats] = useState([]);
     const [searchDrawer, setSearchModal] = useState(false);
     
-    let navigate = useNavigate()
+    let navigate = useNavigate();
 
     const getloggedIn = async () => {
-        const loggedInResponse = await axios.get('http://localhost:4000/loggedIn')
-        setloggedIn(loggedInResponse.data)
+        const loggedInResponse = await axios.get('http://localhost:4000/loggedIn');
+        setloggedIn(loggedInResponse.data);
     }
 
     const logOut = async() => {
-        await axios.get('http://localhost:4000/logout')
-        await getloggedIn()
-        navigate('/')
+        await axios.get('http://localhost:4000/logout');
+        await getloggedIn();
+        navigate('/');
     }
 
     useEffect(() => {

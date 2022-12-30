@@ -133,6 +133,10 @@
 }
 
 .styles{
-    display: block;
-    padding: 5px;
+    display: flex;
+    gap: 20px;
+    height: auto;
+    border: 2px solid red;
+    margin: 10px;
 }
+

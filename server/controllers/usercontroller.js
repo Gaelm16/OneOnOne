@@ -84,8 +84,24 @@ const getloggedIn = async (req,res) => {
         }
 
         getuserfromToken(token)
+        // res.json({status: true, data: u})
+        res.json(true);
+    } catch(err) {
+        res.json(false)
+    }
+}
 
-        res.json(true)
+const getUserInfo = async (req,res) => {
+    try{
+        const token = req.cookies.token
+
+        if(!token) {
+            return res.json(false)
+        }
+
+        getuserfromToken(tok)
+
+        return res.json({data: token})
     } catch(err) {
         res.json(false)
     }
@@ -99,4 +115,4 @@ const logout = (req, res) => {
     .send()
 }
 
-module.exports = {registerUser, loginUser, getloggedIn, logout, searchUser}
+module.exports = {registerUser, loginUser, getloggedIn, logout, searchUser, getUserInfo}

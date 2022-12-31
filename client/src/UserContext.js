@@ -8,6 +8,7 @@ export const chatContext = createContext();
 const UserContext = ({children}) => {
     const [loggedIn, setloggedIn] = useState(false);
     const [selectedChat, setSelectedChat]  = useState();
+    const [user, setUser] = useState();
     const [myChats, setMyChats] = useState([]);
     const [searchDrawer, setSearchModal] = useState(false);
     
@@ -29,7 +30,7 @@ const UserContext = ({children}) => {
     },[])
     
     return (
-        <AuthContext.Provider value={{loggedIn, getloggedIn, logOut, myChats, setMyChats, selectedChat, setSelectedChat, searchDrawer, setSearchModal}}>
+        <AuthContext.Provider value={{loggedIn, getloggedIn, logOut, myChats, setMyChats, selectedChat, setSelectedChat, searchDrawer, setSearchModal, user, setUser}}>
             {children}
         </AuthContext.Provider>
     )

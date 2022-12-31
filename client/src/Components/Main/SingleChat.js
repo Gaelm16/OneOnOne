@@ -5,7 +5,7 @@ import ScrollableChat from './ScrollableChat';
 import io from 'socket.io-client';
 
 const SingleChat = () => {
-  const {selectedChat, setSelectedChat, loggedIn} = useContext(AuthContext);
+  const {selectedChat, loggedIn} = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
   const [socketConnected, setSocketConnected] = useState(false);
@@ -13,20 +13,12 @@ const SingleChat = () => {
   const ENDPOINT = "http://localhost:5000"; 
   let socket;
 
-    const getMessageSender = (loggedUser, users) => {
-      return users[0]._id === loggedUser._id ? users[1].userName : users[0].userName;
-    };
-
-    const getSenderFull = (loggedUser, users) => {
-      return users[0]._id === loggedUser._id ? users[1] : users[0];
-    };
-
   const fetchChatMessages = async () => {
     if(!selectedChat) return;
 
     try{
-      let data = await axios.get(`http://localhost:4000/api/message/${selectedChat._id}`)
-      setMessages(data.data)
+      let { data } = await axios.get(`http://localhost:4000/api/message/${selectedChat._id}`)
+      setMessages(data)
     } catch(err){
       console.log(err)
     }
@@ -35,7 +27,7 @@ const SingleChat = () => {
 
   const sendMessage = async() => {
     try{
-      const messageData = axios.post('http://localhost:4000/api/message/', {
+      const { messageData } = axios.post('http://localhost:4000/api/message/', {
         messageContent: messageContent,
         chatId: selectedChat
       });
@@ -50,7 +42,7 @@ const SingleChat = () => {
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", loggedIn);
-    socket.on('connected', () => {
+    socket.on("connected", () => {
       setSocketConnected(true);
     })
   }, [])

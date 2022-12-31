@@ -8,13 +8,14 @@ const Login = () => {
     const [userName, setuserName] = useState('')
     const [passWord, setpassWord] = useState('')
 
-    const {loggedIn, getloggedIn} = useContext(AuthContext)
+    const {loggedIn, getloggedIn, user, setUser} = useContext(AuthContext)
 
     const login = async(e) => {
         e.preventDefault()
         try{
-            const data = {userName, passWord}
-            await axios.post('http://localhost:4000/login', data)
+            //const data = {userName, passWord}
+            let { data } = await axios.post('http://localhost:4000/login', {userName, passWord});
+            setUser(data);
             getloggedIn()
 
         } catch(err){

@@ -91,22 +91,6 @@ const getloggedIn = async (req,res) => {
     }
 }
 
-const getUserInfo = async (req,res) => {
-    try{
-        const token = req.cookies.token
-
-        if(!token) {
-            return res.json(false)
-        }
-
-        getuserfromToken(tok)
-
-        return res.json({data: token})
-    } catch(err) {
-        res.json(false)
-    }
-}
-
 const logout = (req, res) => {
      res.cookie('token', '', {
         httpOnly: true,
@@ -115,4 +99,4 @@ const logout = (req, res) => {
     .send()
 }
 
-module.exports = {registerUser, loginUser, getloggedIn, logout, searchUser, getUserInfo}
+module.exports = {registerUser, loginUser, getloggedIn, logout, searchUser}

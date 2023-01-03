@@ -1,19 +1,27 @@
-import React, {useEffect, useContext} from 'react'
-import axios from 'axios'
-import { AuthContext } from '../../UserContext' 
+import React, {useEffect, useContext} from 'react';
+import axios from 'axios';
+import { AuthContext } from '../../UserContext' ;
 // import Main from './Main.css'
 
-const MyChats = () => {
+const MyChats = ({fetchAgain}) => {
     const {loggedIn, setSelectedChat, myChats, setMyChats, setSearchModal} = useContext(AuthContext);
+
+    const getMyChats = async() => {
+        const response = await axios.get('http://localhost:4000/api/chat');
+        setMyChats(response.data)
+    }
 
     const getMessageSender = (loggedUser, users) => {
         return users[0]._id === loggedUser._id ? users[1].userName : users[0].userName;
     };
 
     useEffect(() => {
-        axios.get('http://localhost:4000/api/chat')
-        .then(response => setMyChats(response.data))
-    }, [])
+        // axios.get('http://localhost:4000/api/chat');
+        // .then(response => setMyChats(response.data));
+
+        getMyChats();
+
+    }, [fetchAgain])
 
   return (
     <section className='myChats-tab'>   

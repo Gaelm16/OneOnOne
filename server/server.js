@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const messageRoutes = require('./routes/messageRoutes');
-
 dotenv.config();
 
 mongoose.connect(process.env.DATABASE_URL, () => console.log('database connected'));
@@ -25,27 +24,41 @@ app.use(cors({
     credentials: true,
 }));
 
-const server = app.listen(5000, console.log("server started on port 5000"))
+const server = app.listen(4000, () => console.log('Server is running'))
 
 const io = require('socket.io')(server, {
     pingTimeOut: 60000,
     cors:{
-        origin: "http://localhost:3000"
-    }
+        origin: "http://localhost:3000",
+        methods:["GET", "POST"]
+    },
+    //credentials: true
 })
 
 io.on("connection", (socket) => {
     console.log("connected to socket io");
 
     socket.on("setup", (userData) => {
-        socket.join(userData._id);
-        console.log(userData._id);
+        socket.join(userData.result._id);
+        console.log(userData.result._id);
         socket.emit("connected");
     })
+
+    socket.on("join-chat", (chat) => {
+        socket.join(chat);
+        //socket.emit("join-chat");
+    })
+
+    socket.on("newMessageReceived", (newMessage) => {
+        socket.emit("receive_Message", newMessage);
+    })
+
+    socket.off("setup", () => {
+        console.log("USER DISCONNECTED");
+        socket.leave(userData.result._id);
+    });
 })
 
 app.use('/', userRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/message', messageRoutes);
-
-app.listen(4000, () => console.log('Server is running'))

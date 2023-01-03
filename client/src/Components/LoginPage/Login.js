@@ -1,33 +1,32 @@
-import React, {useState, useContext} from 'react'
-import Navbar from '../Navbar/Navbar'
-import {Link, Navigate} from 'react-router-dom'
-import {AuthContext} from '../../UserContext'
-import axios from 'axios'
+import React, {useState, useContext} from 'react';
+import Navbar from '../Navbar/Navbar';
+import {Link, Navigate} from 'react-router-dom';
+import {AuthContext} from '../../UserContext';
+import axios from 'axios';
 
 const Login = () => {
-    const [userName, setuserName] = useState('')
-    const [passWord, setpassWord] = useState('')
+    const [userName, setuserName] = useState('');
+    const [passWord, setpassWord] = useState('');
 
-    const {loggedIn, getloggedIn, user, setUser} = useContext(AuthContext)
+    const {loggedIn, setLoggedin, getloggedIn, user, setUser} = useContext(AuthContext);
 
     const login = async(e) => {
-        e.preventDefault()
+        e.preventDefault();
         try{
-            //const data = {userName, passWord}
             let { data } = await axios.post('http://localhost:4000/login', {userName, passWord});
-            setUser(data);
-            getloggedIn()
+            setUser(data.result);
+            getloggedIn();
 
         } catch(err){
-            console.log('there is an error', err)
+            console.log('there is an error', err);
         }
-        setuserName('')
-        setpassWord('')
+        setuserName('');
+        setpassWord('');
 
     }
 
     if(loggedIn){
-        return (<Navigate to='/chats'/>)
+        return (<Navigate to='/chats'/>);
     }
 
   return (

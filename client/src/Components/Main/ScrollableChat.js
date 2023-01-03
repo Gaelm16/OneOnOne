@@ -3,9 +3,7 @@ import { AuthContext } from '../../UserContext'
 
 const ScrollableChat = ({messages}) => {
   const {user} = useContext(AuthContext);
-  console.log(user.result._id)
-  //let d = user.result._id
-
+  
   const isSameSender = (messages, m, i, userId) => {
   return (
     i < messages.length - 1 &&
@@ -48,29 +46,31 @@ const isSameSenderMargin = (messages, m, i, userId) => {
 
   return (
     <div>
-      {messages &&
+      {messages && 
         messages.map((message, i) => {
+          //console.log(message)
           return(
-              <div key={message._id} className="styles">
-                {(isSameSender(messages, message, i, user.result._id) ||
-                isLastMessage(messages, i, user.result._id)) && (
-                   <span>             
-                {message.sender.userName}
-                </span>
+              <div key={i} className="styles">
+                {(isSameSender(messages, message, i, user._id) ||
+                isLastMessage(messages, i, user._id)) && (
+                  <span>             
+                    {message.userName}
+                  </span>
                 )}
-                {/* <span>             
-                  {message.sender._id === user.result._id ? 'Me' : message.sender.userName}
-                </span> */}
+                <span>
+                  {message.sender.userName}
+                </span>
                   <span style={{
-                backgroundColor: `${
-                  (message.sender._id === user.result._id) ? "#BEE3F8" : "#B9F5D0"
-                }`,
-                marginLeft: isSameSenderMargin(messages, message, i, user.result._id),
-                marginTop: isSameUser(messages, message, i, user.result._id) ? 3 : 10,
-                borderRadius: "20px",
-                padding: "5px 15px",
-                maxWidth: "75%",
-              }}>
+                  backgroundColor: `${
+                    (message.sender._id === user._id) ? "#BEE3F8" : "#B9F5D0"
+                  }`,
+                  marginLeft: isSameSenderMargin(messages, message, i, user._id),
+                  marginTop: isSameUser(messages, message, i, user._id) ? 3 : 10,
+                  borderRadius: "20px",
+                  padding: "5px 15px",
+                  maxWidth: "75%",
+                 }}>
+                
                     {message.messageContent}
                   </span>
             </div>

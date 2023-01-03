@@ -5,22 +5,24 @@ import ScrollableChat from './ScrollableChat';
 import io from 'socket.io-client';
 
 const SingleChat = () => {
-  const {selectedChat, loggedIn} = useContext(AuthContext);
+  const {selectedChat, user} = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
   const [socketConnected, setSocketConnected] = useState(false);
 
-  const ENDPOINT = "http://localhost:5000"; 
+  const ENDPOINT = "http://localhost:4000"; 
   let socket;
 
   const fetchChatMessages = async () => {
     if(!selectedChat) return;
 
     try{
-      let { data } = await axios.get(`http://localhost:4000/api/message/${selectedChat._id}`)
-      setMessages(data)
+      let { data } = await axios.get(`http://localhost:4000/api/message/${selectedChat._id}`);
+      setMessages(data);
+
+      socket.emit("join chat", selectedChat._id);
     } catch(err){
-      console.log(err)
+      console.log(err);
     }
 
   }
@@ -32,7 +34,9 @@ const SingleChat = () => {
         chatId: selectedChat
       });
 
-      return ([messageData, ...messages]);
+      //socket.emit("newMessageReceived", messageData);
+
+      return ([...messages, messageData]);
 
     } catch(e){
       console.log(e);
@@ -41,11 +45,17 @@ const SingleChat = () => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
-    socket.emit("setup", loggedIn);
+    socket.emit("setup", user);
     socket.on("connected", () => {
       setSocketConnected(true);
     })
   }, [])
+
+  // useEffect(() => {
+  //   socket.on("newMessageReceived", (newMessage) => {
+      
+  //   })
+  // })
 
   useEffect(() =>{
     fetchChatMessages();
@@ -57,7 +67,7 @@ const SingleChat = () => {
         {selectedChat && 
           <>  
             <ScrollableChat messages={messages}/>
-            <form onSubmit={sendMessage} >
+            <form  >
               <input 
                   type="text" 
                   value={messageContent}
@@ -66,6 +76,7 @@ const SingleChat = () => {
                   className='searchInput'
               />
             </form>
+            <button onClick={sendMessage}>send </button>
           </>
         }
     </div>

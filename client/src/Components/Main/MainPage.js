@@ -1,29 +1,23 @@
-import React, {useContext} from 'react'
-import MyChats from './MyChats'
-import Navbar from '../Navbar/Navbar'
-import ChatBox from './ChatBox'
-import SearchUser from './SearchUser'
-import { AuthContext } from '../../UserContext'
-import Main from './Main.css'
+import React, {useContext, useState} from 'react';
+import MyChats from './MyChats';
+import Navbar from '../Navbar/Navbar';
+import ChatBox from './ChatBox';
+import SearchUser from './SearchUser';
+import { AuthContext } from '../../UserContext';
+import Main from './Main.css';
 
 const MainPage = () => {
-
-  const {searchDrawer} = useContext(AuthContext);
+  const [fetchAgain, setFetchAgain] = useState(false);
+  const {searchDrawer, user} = useContext(AuthContext);
   
   return (
     <>
     <Navbar/>
-    {/* <div className="main"> */}
-
-  
-    {/* <div className='main'> */}
     <div className="main">
-    <MyChats/>
-    {searchDrawer && <SearchUser/>}
-
-    <ChatBox/>
+      {user && <MyChats fetchAgain={fetchAgain}/>}
+      {searchDrawer && <SearchUser/>}
+      {user && <ChatBox/>}
     </div>
-    {/* </div> */}
     </>
   )
 }

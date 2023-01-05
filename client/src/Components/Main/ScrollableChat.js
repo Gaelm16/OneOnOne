@@ -57,9 +57,6 @@ const isSameSenderMargin = (messages, m, i, userId) => {
                     {message.userName}
                   </span>
                 )}
-                <span>
-                  {message.sender.userName}
-                </span>
                   <span style={{
                   backgroundColor: `${
                     (message.sender._id === user._id) ? "#BEE3F8" : "#B9F5D0"

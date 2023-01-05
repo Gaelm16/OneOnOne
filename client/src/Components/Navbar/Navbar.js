@@ -37,7 +37,7 @@ const Navbar = () => {
                      <> 
                     <div className="nav-header">
                         <Link to='/posts' className='links-btn'>
-                            <h1>WeShare</h1>
+                            <h1>OneOnOne</h1>
                         </Link>
                     </div>
                    <ul className='nav-links'>

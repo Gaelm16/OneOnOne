@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color:#1e3a8a;
+  background-color:#141d26;
   border-bottom: 2px solid #D6CBC1;
   position: relative;
   z-index: 1;
@@ -47,8 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color:#1e3a8a;
-  border-bottom: 2px solid #D6CBC1;
+  background-color:#141d26;
   position: relative;
   z-index: 1;
   box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 5px 20px 0 rgba(0, 0, 0, 0.19);

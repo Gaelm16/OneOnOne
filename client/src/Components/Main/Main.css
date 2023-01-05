@@ -5,8 +5,7 @@
   border-radius: 10px;
   align-items: center;
   justify-content: center;
-  background-color:#1e3a8a;
-  border-bottom: 2px solid #D6CBC1;
+  background-color:#141d26;
   position: relative;
 }
 
@@ -15,11 +14,14 @@
     margin-top: 10px;
     padding: 10px;
     top: 100px;
-    border: 2px solid red;
+    /* border: 2px solid red; */
+    background-color: #141d26;
 }
 
 .singlechatTab{
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
+    background-color: #8AA2A9;
+    border-radius: 10px;
     display: flex;
     margin: 1%;
 }
@@ -29,14 +31,14 @@
     width: 70%;
     display: flex;
     margin: 0 auto;
-    border: 2px solid white;
+    /* border: 2px solid white; */
     margin: 10px;
     padding: 10px;
 }
 
 .alignhead{
     width: 40%;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     margin: 0 auto;
     display: flex;
 }
@@ -44,14 +46,14 @@
 .align{
     width: 50%;
     display: flex;
-    border: 3px solid #fff;
+    /* border: 3px solid #fff; */
     margin: 0 auto;
 }
 
 .single-button-div{
     margin: auto;
     width: 100%;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     width: fit-content;
 }
 
@@ -67,7 +69,7 @@
 
 .h1{
     color: white;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     margin: 0 auto;
     padding: 5px;
     display: flex;
@@ -77,6 +79,7 @@
     display: flex;
     flex: 1;
     gap: 10px;
+    /* background-color: #1b1b70; */
 }
 
 .Box{
@@ -94,8 +97,10 @@
 .SearchModal{
     width: 20%;
     padding: 10px;
-    border: 2px solid red;
+    border-radius: 10px;
+    /* border: 2px solid red; */
     display: inline-block;
+    background-color: #5A5353;
 }
 
 .searchResults-tab{
@@ -106,7 +111,7 @@
     position: relative;
     gap: 30%;
     border-radius: 10px;
-    background-color:#1e3a8a;
+    background-color:#8AA2A9;;
     display: flex;
     margin: 5px;
 }

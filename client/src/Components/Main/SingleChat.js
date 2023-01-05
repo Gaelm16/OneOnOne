@@ -93,7 +93,7 @@ const SingleChat = () => {
                   className='searchInput'
               />
             </form>
-            <button onClick={() => sendMessage()}>send </button>
+            <button onClick={() => sendMessage()} className='button'>send </button>
           </>
         }
     </div>

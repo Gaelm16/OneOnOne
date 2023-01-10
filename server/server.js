@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
         // socket.in(user._id).emit("receive_Message", newMessage);
         // });
         socket.broadcast.emit("receive_Message", newMessage);
-        console.log(newMessage.datas);
+        console.log(newMessage.data);
     })
 
     // socket.off("setup", () => {

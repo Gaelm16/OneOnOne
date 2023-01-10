@@ -32,15 +32,14 @@ const io = require('socket.io')(server, {
         origin: "http://localhost:3000",
         methods:["GET", "POST"]
     },
-    //credentials: true
 })
 
 io.on("connection", (socket) => {
     console.log("connected to socket io");
 
     socket.on("setup", (userData) => {
-        socket.join(userData.result._id);
-        console.log(userData.result._id);
+        socket.join(userData._id);
+        console.log(userData._id);
         socket.emit("connected");
     })
 
@@ -49,14 +48,24 @@ io.on("connection", (socket) => {
         //socket.emit("join-chat");
     })
 
-    socket.on("newMessageReceived", (newMessage) => {
-        socket.emit("receive_Message", newMessage);
+    socket.on("sendNewMessage", (newMessage) => {
+        // let chat = newMessage.chat;
+
+        // if (!chat.users) return console.log("chat.users not defined");
+
+        // chat.users.forEach((user) => {
+        // if (user._id == newMessageRecieved.sender._id) return;
+
+        // socket.in(user._id).emit("receive_Message", newMessage);
+        // });
+        socket.broadcast.emit("receive_Message", newMessage);
+        console.log(newMessage.datas);
     })
 
-    socket.off("setup", () => {
-        console.log("USER DISCONNECTED");
-        socket.leave(userData.result._id);
-    });
+    // socket.off("setup", () => {
+    //     console.log("USER DISCONNECTED");
+    //     socket.leave(userData.result._id);
+    // });
 })
 
 app.use('/', userRoutes);

@@ -11,7 +11,7 @@ const SingleChat = () => {
   const [socketConnected, setSocketConnected] = useState(false);
 
   const ENDPOINT = "http://localhost:4000"; 
-  let socket, selectedChatCompare;
+  let socket = io(ENDPOINT);
 
   const fetchChatMessages = async () => {
     if(!selectedChat) return;
@@ -36,7 +36,11 @@ const SingleChat = () => {
 
       console.log(messageData.data);
       setMessageContent('');
-      return setMessages([...messages, messageData.data]);
+
+      //socket.emit('sendNewMessage', messageData.data);
+      setMessages([...messages, messageData.data]);
+
+      socket.emit("sendNewMessage", messageData);
       
     } catch(e){
       console.log(e);
@@ -44,46 +48,34 @@ const SingleChat = () => {
   }
 
   useEffect(() => {
-    socket = io(ENDPOINT);
+    // socket = io(ENDPOINT);
     socket.emit("setup", user);
     socket.on("connected", () => {
       setSocketConnected(true);
     })
   }, [])
 
-  // useEffect(() => {
-  //   socket.on("receive message", (newMessage) => {
-  //     console.log(newMessage);
-  //     setMessages([...messages, newMessage]);
-  //     setMessageContent("");
-  //   })
-  // })
-
-  useEffect(() =>{
+   useEffect(() =>{
     fetchChatMessages();
-    // if(!selectedChat) return;
-
-    // let data = axios.get(`http://localhost:4000/api/message/${selectedChat._id}`);
-    // setMessages(data);
-
-    //selectedChatCompare = selectedChat
-
+  
   }, [selectedChat])
 
-  //  useEffect(() => {
-  //   socket = io(ENDPOINT);
-  //   socket.emit("setup", user);
-  //   socket.on("connected", () => {
-  //     setSocketConnected(true);
-  //   })
-  // }, [])
+
+  useEffect(() => {
+    //socket = io(ENDPOINT);
+    socket.on("receive_Message", (newMessage) => {
+      console.log(newMessage);
+      setMessages([...messages, newMessage.data]);
+      setMessageContent("");
+    })
+  }, [socket])
 
   return (
     <div>
         {selectedChat && 
           <>  
             <ScrollableChat messages={messages}/>
-            {console.log(messages)}
+            {/* {console.log(messages)} */}
             <form  >
               <input 
                   type="text" 

@@ -11,16 +11,17 @@ const SingleChat = () => {
   const [socketConnected, setSocketConnected] = useState(false);
 
   const ENDPOINT = "http://localhost:4000"; 
-  let socket = io(ENDPOINT);
+  //let socket = io(ENDPOINT);
+
+  let socket, selectedChatCompare;
 
   const fetchChatMessages = async () => {
     if(!selectedChat) return;
 
     try{
       let { data }= await axios.get(`http://localhost:4000/api/message/${selectedChat._id}`);
-      setMessages(data);
-
-      //socket.emit("join chat", selectedChat._id);
+      setMessages(data); 
+       
     } catch(err){
       console.log(err);
     }
@@ -48,7 +49,7 @@ const SingleChat = () => {
   }
 
   useEffect(() => {
-    // socket = io(ENDPOINT);
+    socket = io(ENDPOINT);
     socket.emit("setup", user);
     socket.on("connected", () => {
       setSocketConnected(true);
@@ -57,25 +58,28 @@ const SingleChat = () => {
 
    useEffect(() =>{
     fetchChatMessages();
+
+    selectedChatCompare = selectedChat;
   
   }, [selectedChat])
 
 
   useEffect(() => {
-    //socket = io(ENDPOINT);
-    socket.on("receive_Message", (newMessage) => {
-      console.log(newMessage);
+      socket = io(ENDPOINT);
+      socket.on("receive_Message", (newMessage) => {
+
+      //console.log(newMessage);
       setMessages([...messages, newMessage.data]);
       setMessageContent("");
     })
-  }, [socket])
+  })
 
   return (
     <div>
         {selectedChat && 
           <>  
             <ScrollableChat messages={messages}/>
-            {/* {console.log(messages)} */}
+            {console.log(messages)}
             <form  >
               <input 
                   type="text" 

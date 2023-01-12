@@ -45,27 +45,17 @@ io.on("connection", (socket) => {
 
     socket.on("join-chat", (chat) => {
         socket.join(chat);
-        //socket.emit("join-chat");
     })
 
     socket.on("sendNewMessage", (newMessage) => {
-        // let chat = newMessage.chat;
-
-        // if (!chat.users) return console.log("chat.users not defined");
-
-        // chat.users.forEach((user) => {
-        // if (user._id == newMessageRecieved.sender._id) return;
-
-        // socket.in(user._id).emit("receive_Message", newMessage);
-        // });
         socket.broadcast.emit("receive_Message", newMessage);
         console.log(newMessage.data);
     })
 
-    // socket.off("setup", () => {
-    //     console.log("USER DISCONNECTED");
-    //     socket.leave(userData.result._id);
-    // });
+    socket.off("setup", () => {
+        console.log("USER DISCONNECTED");
+        socket.leave(userData._id);
+    });
 })
 
 app.use('/', userRoutes);

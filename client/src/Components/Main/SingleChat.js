@@ -11,7 +11,6 @@ const SingleChat = () => {
   const [socketConnected, setSocketConnected] = useState(false);
 
   const ENDPOINT = "http://localhost:4000"; 
-  //let socket = io(ENDPOINT);
 
   let socket, selectedChatCompare;
 
